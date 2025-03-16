@@ -5,6 +5,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Numerics;
 using HospitalWebApp.Models.Doctors;
 using HospitalWebApp.Models;
+using HospitalWebApp.Models.Patients;
 
 namespace HospitalWebApp.Data
 {
@@ -14,9 +15,12 @@ namespace HospitalWebApp.Data
             : base(options)
         {
         }
+        public DbSet<PROMIS10> PROMIS10s { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<Bill> Bills { get; set; }
+        public DbSet<BillItem> BillItems { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
