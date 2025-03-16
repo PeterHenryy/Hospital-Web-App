@@ -1,9 +1,10 @@
 ﻿namespace HospitalWebApp.Models.Interfaces
 {
-    public interface IAdminRepository   
+    public interface IAdminRepository
     {
-
-        decimal CalculateDoctorRevenue(int doctorID);
-        decimal CalculateHospitalRevenue();
+        Task<List<Bill>> GetPaidBillsAsync();
+        Task<List<Bill>> GetBillsByDoctorIDAsync(int doctorID);
+        Task<decimal> CalculateDoctorRevenueAsync(int doctorID);
+        Task<decimal> CalculateHospitalRevenueAsync();
     }
 }
