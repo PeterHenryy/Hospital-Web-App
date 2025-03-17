@@ -102,8 +102,9 @@ namespace HospitalWebApp.Controllers
 
         public async Task<IActionResult> MyAppointments()
         {
-            var doctorId = await _doctorService.GetDoctorByUserIDAsync(_currentUser.Id).ID;
-            var appointments = await _doctorService.GetAppointmentsByDoctorAsync(doctorId).ToList();
+            var doctor = await _doctorService.GetDoctorByUserIDAsync(_currentUser.Id);
+            var doctorID = doctor.ID;
+            var appointments = await _doctorService.GetAppointmentsByDoctorAsync(doctorID);
             return View(appointments);
         }
         public async Task<IActionResult> BillingForAppointment(int appointmentId)

@@ -20,18 +20,26 @@ namespace HospitalWebApp
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddIdentity<AppUser, AppRole>(options => options.SignIn.RequireConfirmedAccount = false)
+            builder.Services.AddIdentity<AppUser, AppRole>(options => {
+                options.SignIn.RequireConfirmedAccount = false;
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequiredLength = 3;
+                options.Password.RequiredUniqueChars = 1;
+            })
                                                     .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             builder.Services.AddTransient<UserService>();
-            builder.Services.AddTransient<DoctorRepository>();
+            builder.Services.AddTransient<IDoctorRepository, DoctorRepository>();
             builder.Services.AddTransient<DoctorService>();
-            builder.Services.AddTransient<PatientRepository>();
+            builder.Services.AddTransient<IPatientRepository,PatientRepository>();
             builder.Services.AddTransient<PatientService>();
             builder.Services.AddTransient<AdminService>();
-            builder.Services.AddTransient<AdminRepository>();
+            builder.Services.AddTransient<IAdminRepository,AdminRepository>();
             builder.Services.Configure<IdentityOptions>(options =>
             {
                 options.User.AllowedUserNameCharacters = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+!*";

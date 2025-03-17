@@ -1,0 +1,334 @@
+﻿@model DoctorDetailsViewModel
+@using HospitalWebApp.Helpers.Enums;
+@using HospitalWebApp.Models.Identity;
+@using Microsoft.AspNetCore.Identity
+
+@{
+	Layout = null;
+	bool patientRole = User.IsInRole(UserRolesEnum.Patient.ToString());
+}
+<!doctype html>
+<html class="no-js" lang="zxx">
+<head>
+	<!-- Meta Tags -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="keywords" content="Site keywords here">
+	<meta name="description" content="">
+	<meta name='copyright' content=''>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Title -->
+	<title>Mediplus - Free Medical and Doctor Directory HTML Template.</title>
+
+	<!-- Favicon -->
+	<link rel="icon" href="~/ProjectTheme2/img/favicon.png">
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="~/ProjectTheme2/css/bootstrap.min.css">
+	<!-- Nice Select CSS -->
+	<link rel="stylesheet" href="~/ProjectTheme2/css/nice-select.css">
+	<!-- Font Awesome CSS -->
+	<link rel="stylesheet" href="~/ProjectTheme2/css/font-awesome.min.css">
+	<!-- icofont CSS -->
+	<link rel="stylesheet" href="~/ProjectTheme2/css/icofont.css">
+	<!-- Slicknav -->
+	<link rel="stylesheet" href="~/ProjectTheme2/css/slicknav.min.css">
+	<!-- Owl Carousel CSS -->
+	<link rel="stylesheet" href="~/ProjectTheme2/css/owl-carousel.css">
+	<!-- Datepicker CSS -->
+	<link rel="stylesheet" href="~/ProjectTheme2/css/datepicker.css">
+	<!-- Animate CSS -->
+	<link rel="stylesheet" href="~/ProjectTheme2/css/animate.min.css">
+	<!-- Magnific Popup CSS -->
+	<link rel="stylesheet" href="~/ProjectTheme2/css/magnific-popup.css">
+
+	<!-- Medipro CSS -->
+	<link rel="stylesheet" href="~/ProjectTheme2/css/normalize.css">
+	<link rel="stylesheet" href="~/ProjectTheme2/style.css">
+	<link rel="stylesheet" href="~/ProjectTheme2/css/responsive.css">
+	<style>
+		.app-time {
+			border: 1px solid #fff;
+			padding: 20px 30px;
+			box-shadow: 2px 4px 10px 0px #c7cacce3;
+			 
+		}
+
+		.option-input {
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			-ms-appearance: none;
+			-o-appearance: none;
+			appearance: none;
+			position: relative;
+			top: 5px;
+			right: 0;
+			bottom: 0;
+			left: 40px;
+			height: 20px;
+			width: 20px;
+			transition: all 0.15s ease-out 0s;
+			background: #fff;
+			border: 1px solid #999;
+			color: #fff;
+			cursor: pointer;
+			display: inline-block;
+			margin-right: 0.5rem;
+			outline: none;
+			position: relative;
+			z-index: 1000;
+		}
+
+			.option-input:hover {
+				background: #e5e7eb;
+			}
+
+			.option-input:checked {
+				border: 1px solid #fff;
+			}
+
+				.option-input:checked::before {
+					color: #d9486d;
+					height: 40px;
+					width: 40px;
+					position: absolute;
+					content: "✔";
+					display: inline-block;
+					font-size: 12px;
+					left: 4px;
+					line-height: 20px;
+				}
+
+		.book-appointment-button:hover{
+			cursor:pointer;
+		}
+		.option-input:checked::after {
+					-webkit-animation: click-wave 0.65s;
+					-moz-animation: click-wave 0.65s;
+					animation: click-wave 0.65s;
+					background: #40e0d0;
+					content: "";
+					display: block;
+					position: relative;
+					z-index: 100;
+				}
+
+
+			.option-input.radio {
+				border-radius: 50%;calc(40.666% )
+			}
+
+				.option-input.radio::after {
+					border-radius: 50%;
+				}
+
+		.app-check {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px; /* Adjust the gap as needed */
+		}
+
+		.app-border {
+			border: 1px solid #ccc;
+			padding: 5px;
+			text-align: center;
+			width: 139px;
+			box-sizing: border-box;
+			margin-bottom: 11px;
+			margin-left: 16px;
+			transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out; /* Adding smooth transitions for both box-shadow and size changes */
+			border-radius: 8px; /* Adjust the value for the desired roundness */
+		}
+
+		.app-border:hover {
+			box-shadow: 0px 0px 5px rgba(26, 118, 209, 0.8); /* Blue color with 0.8 opacity for a shadow effect, with a smaller blur radius */
+			transform: scale(1.03); /* Slightly larger size on hover, adjust the scale factor as needed */
+		}
+
+
+
+		.option-input.radio:checked + .app-border {
+			background: #d9486d;
+		}
+
+		.option-input.radio:disabled,
+		.option-input.radio:disabled + .app-border {
+			cursor: not-allowed;
+			opacity: 0.6;
+		}
+		#hover-helper:hover{
+			cursor:pointer;
+		}
+		.app-label {
+			position: relative;
+			top: 5px;
+			margin-right: 10px;
+		}
+
+	</style>
+</head>
+<body>
+ 
+
+	<!-- Header Area -->
+	<header class="header">
+		<partial name="_LoginPartial" />
+	</header>
+	<!-- End Header Area -->
+	<!-- Breadcrumbs -->
+	<div class="breadcrumbs overlay">
+		<div class="container">
+			<div class="bread-inner">
+				<div class="row">
+					<div class="col-12">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Breadcrumbs -->
+	<!-- Single News -->
+	<section class="news-single section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-12">
+					<div class="row">
+						<div class="col-12">
+							<div class="single-main">
+								<!-- News Head -->
+								<div class="news-head">
+									<img src="~/profilepics/@Model.Doctor.User.ProfilePicture" style="width:100%" alt="#">
+								</div>
+								<!-- News Title -->
+								<h1 class="news-title"><a  >@Model.Doctor.DoctorRole, Dr.@Model.Doctor.User.UserName</a></h1>
+								<!-- Meta -->
+								<div class="meta">
+									<div class="meta-left">
+									</div>
+								</div>
+								<!-- News Text -->
+								<div class="news-text">
+									<div class="app-time">
+										<p style="color:black; font-weight: 700; font-size:23px;text-align:center">Appointments</p>
+										<br />
+										@if (Model.DoctorAppointments.Count() == 0)
+										{
+											<p style="color:black; font-weight: 700; font-size:30px;text-align:center">No Available Appointments</p>
+
+										}
+										else
+										{
+											@foreach (var item in Model.AppointmentsByMonths.OrderBy(x => x.Key))
+											{
+												<p style="color:black; font-weight: 700; font-size:17px">@Model.GetMonthNameByNumber(item.Key)</p>
+												<div class="row">
+													@foreach (var appointment in item.Value)
+													{
+														if(patientRole){
+
+															<a class="book-appointment-button" href="@Url.Action("BookAppointment", "Patient", new {appointmentId = appointment.ID})">
+																<div class="app-check" >
+																	<div class="app-border">
+
+																		<label class="app-label" style="cursor: pointer;">
+																				@appointment.AppointmentDate.ToString("MM/dd/yyyy")
+																				<br />
+																				@appointment.AppointmentStartTime
+																		</label>
+																	</div>
+
+																</div>
+															</a>
+														}
+														else{
+															<div class="app-check">
+																<div class="app-border">
+
+																	<label class="app-label">
+																		@appointment.AppointmentDate.ToString("MM/dd/yyyy")
+																		<br />
+																		@appointment.AppointmentStartTime
+																	</label>
+																</div>
+
+															</div>
+														}
+													}
+												</div>
+											}
+										}
+									 
+										 
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+				<div class="col-lg-4 col-12">
+					<div class="main-sidebar">
+						<!-- Single Widget -->
+						<div class="single-widget category">
+							<h3 class="title">Doctor Bio</h3>
+							<p>
+								@(Model.Doctor.Bio != null ? Model.Doctor.Bio : "Specialist at Ineza Physiotherapy Clinic")
+							</p>
+						</div>
+						<!--/ End Single Widget -->
+						<!-- Single Widget -->
+						<div class="single-widget category">
+							<h3 class="title">Doctor Details</h3>
+							<ul class="categor-list" style="display: flex; flex-direction: column; align-items: start;">
+								<li><a> <span style="color:black;font-weight:500">Role:</span> @Model.Doctor.DoctorRole</a></li>
+								<li><a> <span style="color:black;font-weight:500">Email:</span> @Model.Doctor.User.Email</a></li>
+								<li><a> <span style="color:black;font-weight:500">Phone:</span> @(Model.Doctor.User.PhoneNumber != null ? Model.Doctor.User.PhoneNumber : "N/A") </a></li>
+							</ul>
+						</div>
+						<!--/ End Single Widget -->
+						<!-- Single Widget -->
+						<div class="single-widget side-tags">
+							<h3 class="title">Tags</h3>
+							<ul class="tag" style="display: grid;">
+								@foreach (var item in DoctorRolesEnum.RolesKeywords[@Model.Doctor.DoctorRole.Replace(" ", "_")])
+								{
+									<li><a  >@item</a></li>
+								}
+							</ul>
+						</div>
+						<!--/ End Single Widget -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--/ End Single News -->
+	<partial name="_FooterPartial" />
+
+	<!--/ End Footer Area -->
+	<script src="~/ProjectTheme2/js/jquery.min.js"></script>
+	<script src="~/ProjectTheme2/js/jquery-migrate-3.0.0.js"></script>
+	<script src="~/ProjectTheme2/js/jquery-ui.min.js"></script>
+	<script src="~/ProjectTheme2/js/easing.js"></script>
+	<script src="~/ProjectTheme2/js/colors.js"></script>
+	<script src="~/ProjectTheme2/js/popper.min.js"></script>
+	<script src="~/ProjectTheme2/js/bootstrap-datepicker.js"></script>
+	<script src="~/ProjectTheme2/js/jquery.nav.js"></script>
+	<script src="~/ProjectTheme2/js/slicknav.min.js"></script>
+	<script src="~/ProjectTheme2/js/jquery.scrollUp.min.js"></script>
+	<script src="~/ProjectTheme2/js/niceselect.js"></script>
+	<script src="~/ProjectTheme2/js/tilt.jquery.min.js"></script>
+	<script src="~/ProjectTheme2/js/owl-carousel.js"></script>
+	<script src="~/ProjectTheme2/js/jquery.counterup.min.js"></script>
+	<script src="~/ProjectTheme2/js/steller.js"></script>
+	<script src="~/ProjectTheme2/js/wow.min.js"></script>
+	<script src="~/ProjectTheme2/js/jquery.magnific-popup.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
+	<script src="~/ProjectTheme2/js/bootstrap.min.js"></script>
+	<script src="~/ProjectTheme2/js/main.js"></script>
+</body>
+</html>
