@@ -218,7 +218,7 @@
 									Doctor doctor = Model[i];
 									<tr>
 										<td>
-											<img class="doctor-profile-pic" style="width:55px; height: 55px;" src="@doctor.ProfilePictureURI" />
+											<img class="doctor-profile-pic" style="width:55px; height: 55px;" src="~/profilepics/@doctor.User.ProfilePicture" />
 										</td>
 										<td>@doctor.User.FirstName @doctor.User.LastName</td>
 										<td>@doctor.DoctorRole</td>

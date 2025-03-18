@@ -56,7 +56,7 @@
                         <a href="@Url.Action("DoctorAndAppointmentsDetails", "Patient", new {doctorID = @doctor.ID})">
                             <div class="blog__item">
                                 <div class="blog__item__pic">
-                                        <img style="width: 350px; height: 350px;" src="@doctor.ProfilePictureURI">
+                                        <img style="width: 350px; height: 350px;" src="~/profilepics/@doctor.User.ProfilePicture">
                                 </div>
                                 <div class="blog__item__text">
                                     <ul>
